@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
 import { ProjectsService } from "./projects.service";
-import { Project } from "./enitities/project.entity";
+import { Project } from "./entities/project.entity";
 import { CreateProjectDTO } from "./dto/createProject.dto";
 
 @Controller("api/projects")
