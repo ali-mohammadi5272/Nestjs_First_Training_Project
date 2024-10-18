@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 
 export enum TaskStatus {
@@ -31,9 +32,12 @@ export class Task {
   status: TaskStatus;
   @Column()
   projectId: number;
-  @CreateDateColumn({ type: "timestamp", default: "CURRENT_TIMESTAMP(6)" })
-  createdAt: Date;
   @CreateDateColumn({
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP(6)",
+  })
+  createdAt: Date;
+  @UpdateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP(6)",
     onUpdate: "CURRENT_TIMESTAMP(6)",
