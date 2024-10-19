@@ -1,37 +1,31 @@
+import { Project } from "src/modules/projects/entities/project.entity";
+import { Status } from "../enums/status.enum";
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 
-export enum TaskStatus {
-  Pending = "Pending",
-  Doing = "Doing",
-  End = "End",
-  Cancel = "Cancel",
-}
-
-@Entity()
+@Entity({ name: "tasks" })
 export class Task {
   @PrimaryGeneratedColumn()
   id: number;
   @Column({ unique: true })
   title: string;
+  @Column()
+  description: string;
   @Column({
     type: "enum",
-    enum: [
-      TaskStatus.Pending,
-      TaskStatus.Doing,
-      TaskStatus.End,
-      TaskStatus.Cancel,
-    ],
-    default: TaskStatus.Pending,
+    enum: Status,
+    default: Status.PENDING,
   })
-  status: TaskStatus;
+  status: Status;
   @Column()
-  projectId: number;
+  @ManyToOne(() => Project, (project) => project.id)
+  project: number;
   @CreateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP(6)",
