@@ -23,4 +23,8 @@ export class ProjectsService {
   getOne(id: number): Promise<Project> {
     return this._repository.findOneBy({ id });
   }
+
+  deleteOne(id: number): void {
+    this._repository.delete({ id });
+  }
 }
