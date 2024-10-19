@@ -6,10 +6,12 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
 } from "@nestjs/common";
 import { ProjectsService } from "./projects.service";
 import { Project } from "./entities/project.entity";
 import { CreateProjectDTO } from "./dto/createProject.dto";
+import { UpdateProjectDTO } from "./dto/updateProject.dto";
 
 @Controller("api/projects")
 export class ProjectsController {
@@ -33,5 +35,13 @@ export class ProjectsController {
   @Delete("/:id")
   deleteOne(@Param("id", ParseIntPipe) id: number): void {
     this.projectService.deleteOne(id);
+  }
+
+  @Put("/:id")
+  updateOne(
+    @Param("id") id: number,
+    @Body() body: UpdateProjectDTO,
+  ): Promise<Project> {
+    return this.projectService.updateOne(id, body);
   }
 }
