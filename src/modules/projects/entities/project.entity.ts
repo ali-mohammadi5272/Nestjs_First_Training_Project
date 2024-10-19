@@ -1,3 +1,4 @@
+import { Status } from "../enums/status.enum";
 import {
   Column,
   CreateDateColumn,
@@ -6,14 +7,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-export enum ProjectStatus {
-  Pending = "Pending",
-  Doing = "Doing",
-  End = "End",
-  Cancel = "Cancel",
-}
-
-@Entity()
+@Entity({ name: "projects" })
 export class Project {
   @PrimaryGeneratedColumn()
   id: number;
@@ -21,15 +15,10 @@ export class Project {
   title: string;
   @Column({
     type: "enum",
-    enum: [
-      ProjectStatus.Pending,
-      ProjectStatus.Doing,
-      ProjectStatus.End,
-      ProjectStatus.Cancel,
-    ],
-    default: ProjectStatus.Pending,
+    enum: Status,
+    default: Status.PENDING,
   })
-  status: ProjectStatus;
+  status: Status;
   @CreateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP(6)",
