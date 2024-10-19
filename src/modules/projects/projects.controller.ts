@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -27,5 +28,10 @@ export class ProjectsController {
   @Get("/:id")
   getOne(@Param("id", ParseIntPipe) id: number): Promise<Project> {
     return this.projectService.getOne(id);
+  }
+
+  @Delete("/:id")
+  deleteOne(@Param("id", ParseIntPipe) id: number): void {
+    this.projectService.deleteOne(id);
   }
 }
