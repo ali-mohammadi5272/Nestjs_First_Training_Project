@@ -19,4 +19,8 @@ export class ProjectsService {
     const newProject = this._repository.create(createProjectDTO);
     return this._repository.save(newProject);
   }
+
+  getOne(id: number): Promise<Project> {
+    return this._repository.findOneBy({ id });
+  }
 }
