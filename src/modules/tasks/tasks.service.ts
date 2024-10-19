@@ -11,6 +11,12 @@ export class TasksService {
     private _repository: Repository<Task>,
   ) {}
 
+  getAll(): Promise<Task[]> {
+    return this._repository.find({
+      relations: ["project"],
+    });
+  }
+
   async createOne(createTaskDto: CreateTaskDto): Promise<Task> {
     const newTask = this._repository.create({
       title: createTaskDto.title,
