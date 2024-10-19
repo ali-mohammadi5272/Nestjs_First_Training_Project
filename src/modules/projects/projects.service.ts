@@ -11,6 +11,10 @@ export class ProjectsService {
     private _repository: Repository<Project>,
   ) {}
 
+  getAll(): Promise<Project[]> {
+    return this._repository.find();
+  }
+
   createOne(createProjectDTO: CreateProjectDTO): Promise<Project> {
     const newProject = this._repository.create(createProjectDTO);
     return this._repository.save(newProject);
