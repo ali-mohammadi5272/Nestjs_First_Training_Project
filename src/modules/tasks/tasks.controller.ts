@@ -1,6 +1,7 @@
 import { Task } from "./entities/task.entity";
 import { TasksService } from "./tasks.service";
 import { CreateTaskDto } from "./dto/createTask.dto";
+import { UpdateTaskDto } from "./dto/update-task.dto";
 import {
   Body,
   Controller,
@@ -11,7 +12,6 @@ import {
   Post,
   Put,
 } from "@nestjs/common";
-import { UpdateTaskDto } from "./dto/update-task.dto";
 
 @Controller("api/tasks")
 export class TasksController {
