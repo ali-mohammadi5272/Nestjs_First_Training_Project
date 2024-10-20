@@ -11,15 +11,17 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
 } from "@nestjs/common";
+import { Status } from "./enums/status.enum";
 
 @Controller("api/projects")
 export class ProjectsController {
   constructor(private readonly projectService: ProjectsService) {}
 
   @Get()
-  getAll(): Promise<Project[]> {
-    return this.projectService.getAll();
+  getAll(@Query("status") status?: Status): Promise<Project[]> {
+    return this.projectService.getAll(status);
   }
 
   @Post()
