@@ -13,7 +13,7 @@ export class ProjectsService {
   ) {}
 
   getAll(): Promise<Project[]> {
-    return this._repository.find();
+    return this._repository.find({ relations: ["tasks"] });
   }
 
   createOne(createProjectDTO: CreateProjectDTO): Promise<Project> {
