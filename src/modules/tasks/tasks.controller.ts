@@ -1,6 +1,6 @@
 import { Task } from "./entities/task.entity";
 import { TasksService } from "./tasks.service";
-import { CreateTaskDto } from "./dto/createTask.dto";
+import { CreateTaskDto } from "./dto/create-task.dto";
 import { UpdateTaskDto } from "./dto/update-task.dto";
 import {
   Body,
