@@ -43,4 +43,8 @@ export class TasksService {
     });
     return updatedTask;
   }
+
+  deleteOne(id: number): void {
+    this._repository.delete({ id });
+  }
 }
