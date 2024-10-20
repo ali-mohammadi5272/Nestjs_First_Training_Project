@@ -1,5 +1,5 @@
 import { UpdateTaskDto } from "./dto/update-task.dto";
-import { CreateTaskDto } from "./dto/createTask.dto";
+import { CreateTaskDto } from "./dto/create-task.dto";
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Task } from "./entities/task.entity";
