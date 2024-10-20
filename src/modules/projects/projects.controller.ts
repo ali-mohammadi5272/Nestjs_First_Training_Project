@@ -1,7 +1,7 @@
 import { ProjectsService } from "./projects.service";
 import { Project } from "./entities/project.entity";
 import { CreateProjectDTO } from "./dto/create-project.dto";
-import { UpdateProjectDTO } from "./dto/updateProject.dto";
+import { UpdateProjectDTO } from "./dto/update-project.dto";
 import {
   Body,
   Controller,
