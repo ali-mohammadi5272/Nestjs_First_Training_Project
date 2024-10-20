@@ -29,4 +29,8 @@ export class TasksService {
       relations: ["project"],
     });
   }
+
+  getOne(id: number): Promise<Task> {
+    return this._repository.findOne({ where: { id }, relations: ["project"] });
+  }
 }
