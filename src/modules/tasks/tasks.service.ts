@@ -1,3 +1,4 @@
+import { UpdateTaskDto } from "./dto/update-task.dto";
 import { CreateTaskDto } from "./dto/createTask.dto";
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -32,5 +33,14 @@ export class TasksService {
 
   getOne(id: number): Promise<Task> {
     return this._repository.findOne({ where: { id }, relations: ["project"] });
+  }
+
+  async updateOne(id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
+    await this._repository.update({ id }, updateTaskDto);
+    const updatedTask = this._repository.findOne({
+      where: { id },
+      relations: ["project"],
+    });
+    return updatedTask;
   }
 }
