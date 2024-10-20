@@ -48,8 +48,8 @@ export class ProjectsController {
   @Put("/:id")
   updateOne(
     @Param("id") id: number,
-    @Body() body: UpdateProjectDTO,
+    @Body() updateProjectDto: UpdateProjectDTO,
   ): Promise<Project> {
-    return this.projectService.updateOne(id, body);
+    return this.projectService.updateOne(id, updateProjectDto);
   }
 }
