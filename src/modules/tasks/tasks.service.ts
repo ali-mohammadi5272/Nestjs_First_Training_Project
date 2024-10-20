@@ -9,7 +9,7 @@ import { Repository } from "typeorm";
 export class TasksService {
   constructor(
     @InjectRepository(Task)
-    private _repository: Repository<Task>,
+    private readonly _repository: Repository<Task>,
   ) {}
 
   getAll(): Promise<Task[]> {
