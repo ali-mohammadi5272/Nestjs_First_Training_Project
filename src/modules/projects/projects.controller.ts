@@ -29,8 +29,10 @@ export class ProjectsController {
   }
 
   @Post()
-  createOneProject(@Body() body: CreateProjectDTO): Promise<Project> {
-    return this.projectService.createOne(body);
+  createOneProject(
+    @Body() createProjectDto: CreateProjectDTO,
+  ): Promise<Project> {
+    return this.projectService.createOne(createProjectDto);
   }
 
   @Get("/:id")
