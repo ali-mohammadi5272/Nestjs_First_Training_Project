@@ -4,6 +4,7 @@ import { Project } from "./entities/project.entity";
 import { Repository } from "typeorm";
 import { CreateProjectDTO } from "./dto/create-project.dto";
 import { UpdateProjectDTO } from "./dto/update-project.dto";
+import { Status } from "./enums/status.enum";
 
 @Injectable()
 export class ProjectsService {
@@ -12,8 +13,13 @@ export class ProjectsService {
     private readonly _repository: Repository<Project>,
   ) {}
 
-  getAll(): Promise<Project[]> {
-    return this._repository.find({ relations: ["tasks"] });
+  getAll(status?: Status): Promise<Project[]> {
+    const query = this._repository.createQueryBuilder("projects");
+    if (status) {
+      query.where("status = :status", { status });
+    }
+
+    return query.getMany();
   }
 
   createOne(createProjectDTO: CreateProjectDTO): Promise<Project> {
