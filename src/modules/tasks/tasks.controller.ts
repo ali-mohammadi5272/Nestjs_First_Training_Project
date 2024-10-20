@@ -4,6 +4,7 @@ import { CreateTaskDto } from "./dto/createTask.dto";
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -37,5 +38,10 @@ export class TasksController {
     @Body() body: UpdateTaskDto,
   ): Promise<Task> {
     return this._taskService.updateOne(id, body);
+  }
+
+  @Delete("/:id")
+  deleteOne(@Param("id", ParseIntPipe) id: number): void {
+    this._taskService.deleteOne(id);
   }
 }
