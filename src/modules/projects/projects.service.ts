@@ -9,7 +9,7 @@ import { UpdateProjectDTO } from "./dto/updateProject.dto";
 export class ProjectsService {
   constructor(
     @InjectRepository(Project)
-    private _repository: Repository<Project>,
+    private readonly _repository: Repository<Project>,
   ) {}
 
   getAll(): Promise<Project[]> {
