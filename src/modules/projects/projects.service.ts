@@ -13,11 +13,12 @@ export class ProjectsService {
     private readonly _repository: Repository<Project>,
   ) {}
 
-  getAll(status?: Status): Promise<Project[]> {
+  getAll(status: Status, limit: number, page: number): Promise<Project[]> {
     const query = this._repository.createQueryBuilder("projects");
     if (status) {
       query.where("status = :status", { status });
     }
+    query.skip((page - 1) * limit).take(limit);
 
     return query.getMany();
   }
