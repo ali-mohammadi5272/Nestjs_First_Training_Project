@@ -2,6 +2,7 @@ import { ProjectsService } from "./projects.service";
 import { Project } from "./entities/project.entity";
 import { CreateProjectDTO } from "./dto/create-project.dto";
 import { UpdateProjectDTO } from "./dto/update-project.dto";
+import { Status } from "./enums/status.enum";
 import {
   Body,
   Controller,
@@ -13,15 +14,18 @@ import {
   Put,
   Query,
 } from "@nestjs/common";
-import { Status } from "./enums/status.enum";
 
 @Controller("api/projects")
 export class ProjectsController {
   constructor(private readonly projectService: ProjectsService) {}
 
   @Get()
-  getAll(@Query("status") status?: Status): Promise<Project[]> {
-    return this.projectService.getAll(status);
+  getAll(
+    @Query("status") status: Status,
+    @Query("limit") limit: number = 10,
+    @Query("page") page: number = 1,
+  ): Promise<Project[]> {
+    return this.projectService.getAll(status, limit, page);
   }
 
   @Post()
