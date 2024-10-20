@@ -47,7 +47,7 @@ export class ProjectsController {
 
   @Put("/:id")
   updateOne(
-    @Param("id") id: number,
+    @Param("id", ParseIntPipe) id: number,
     @Body() updateProjectDto: UpdateProjectDTO,
   ): Promise<Project> {
     return this.projectService.updateOne(id, updateProjectDto);
