@@ -8,7 +8,9 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
 } from "@nestjs/common";
+import { UpdateTaskDto } from "./dto/update-task.dto";
 
 @Controller("api/tasks")
 export class TasksController {
@@ -27,5 +29,13 @@ export class TasksController {
   @Get("/:id")
   getOne(@Param("id", ParseIntPipe) id: number): Promise<Task> {
     return this._taskService.getOne(id);
+  }
+
+  @Put("/:id")
+  updateOne(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() body: UpdateTaskDto,
+  ): Promise<Task> {
+    return this._taskService.updateOne(id, body);
   }
 }
