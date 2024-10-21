@@ -1,4 +1,4 @@
-import { IsDefined, IsString, MinLength } from "class-validator";
+import { IsDefined, IsEnum, IsString, MinLength } from "class-validator";
 import { Status } from "../enums/status.enum";
 
 export class UpdateTaskDto {
@@ -10,5 +10,6 @@ export class UpdateTaskDto {
   @IsString()
   description: string;
   @IsDefined()
+  @IsEnum(Status)
   status: Status;
 }
