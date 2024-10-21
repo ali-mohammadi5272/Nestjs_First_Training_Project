@@ -1,10 +1,14 @@
-import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Project } from "./entities/project.entity";
 import { Repository } from "typeorm";
 import { CreateProjectDTO } from "./dto/create-project.dto";
 import { UpdateProjectDTO } from "./dto/update-project.dto";
 import { Status } from "./enums/status.enum";
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from "@nestjs/common";
 
 @Injectable()
 export class ProjectsService {
@@ -47,9 +51,17 @@ export class ProjectsService {
     id: number,
     updateProjectDTO: UpdateProjectDTO,
   ): Promise<Project> {
-    const test = await this._repository.update({ id }, updateProjectDTO);
-    console.log(test);
-    const updatedUser = this._repository.findOneBy({ id });
-    return updatedUser;
+    const project = await this._repository.findOneBy({ id });
+    if (!project) {
+      throw new NotFoundException(`Project with id ${id} is not found !!`);
+    }
+
+    try {
+      await this._repository.update({ id }, updateProjectDTO);
+      const updatedProject: Project = await this._repository.findOneBy({ id });
+      return updatedProject;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 }
