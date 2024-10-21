@@ -65,10 +65,16 @@ export class ProjectsController {
   }
 
   @Put("/:id")
-  updateOne(
+  async updateOne(
     @Param("id", ParseIntPipe) id: number,
     @Body() updateProjectDto: UpdateProjectDTO,
-  ): Promise<Project> {
-    return this.projectService.updateOne(id, updateProjectDto);
+    @Res() res: Response,
+  ): Promise<Response> {
+    const project = await this.projectService.updateOne(id, updateProjectDto);
+    return res.status(HttpStatus.OK).json({
+      message: "Project updated successfully :))",
+      data: project,
+      statusCode: HttpStatus.OK,
+    });
   }
 }
