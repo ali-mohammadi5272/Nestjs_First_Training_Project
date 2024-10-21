@@ -48,6 +48,7 @@ export class ProjectsController {
     @Res() res: Response,
   ): Promise<Response> {
     const project = await this.projectService.createOne(createProjectDto);
+
     return res.status(HttpStatus.CREATED).json({
       message: "Project created successfully :))",
       data: project,
@@ -61,6 +62,7 @@ export class ProjectsController {
     @Param("id", ParseIntPipe) id: number,
   ): Promise<Response> {
     const data = await this.projectService.getOne(id);
+
     return res.status(HttpStatus.OK).json({
       message: "Successfully GET Project :))",
       data,
@@ -74,6 +76,7 @@ export class ProjectsController {
     @Res() res: Response,
   ): Promise<Response> {
     await this.projectService.deleteOne(id);
+
     return res.status(HttpStatus.OK).json({
       message: "Project removed successfully :))",
       data: null,
@@ -88,6 +91,7 @@ export class ProjectsController {
     @Res() res: Response,
   ): Promise<Response> {
     const project = await this.projectService.updateOne(id, updateProjectDto);
+
     return res.status(HttpStatus.OK).json({
       message: "Project updated successfully :))",
       data: project,
