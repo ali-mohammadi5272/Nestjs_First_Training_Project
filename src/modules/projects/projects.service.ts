@@ -36,8 +36,11 @@ export class ProjectsService {
     return project;
   }
 
-  deleteOne(id: number): void {
-    this._repository.delete({ id });
+  async deleteOne(id: number): Promise<void> {
+    const result = await this._repository.delete({ id });
+    if (!result.affected) {
+      throw new NotFoundException(`Project with id ${id} is not found !!`);
+    }
   }
 
   async updateOne(
