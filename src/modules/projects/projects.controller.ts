@@ -32,10 +32,16 @@ export class ProjectsController {
   }
 
   @Post()
-  createOneProject(
+  async createOneProject(
     @Body() createProjectDto: CreateProjectDTO,
-  ): Promise<Project> {
-    return this.projectService.createOne(createProjectDto);
+    @Res() res: Response,
+  ): Promise<Response> {
+    const project = await this.projectService.createOne(createProjectDto);
+    return res.status(HttpStatus.CREATED).json({
+      message: "Project created successfully :))",
+      data: project,
+      statusCode: HttpStatus.CREATED,
+    });
   }
 
   @Get("/:id")
