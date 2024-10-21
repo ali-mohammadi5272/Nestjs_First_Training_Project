@@ -3,6 +3,7 @@ import { Project } from "./entities/project.entity";
 import { CreateProjectDTO } from "./dto/create-project.dto";
 import { UpdateProjectDTO } from "./dto/update-project.dto";
 import { Status } from "./enums/status.enum";
+import { Response } from "express";
 import {
   Body,
   Controller,
@@ -16,7 +17,6 @@ import {
   Query,
   Res,
 } from "@nestjs/common";
-import { Response } from "express";
 
 @Controller("api/projects")
 export class ProjectsController {
