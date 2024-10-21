@@ -28,8 +28,12 @@ export class ProjectsService {
     return this._repository.save(newProject);
   }
 
-  getOne(id: number): Promise<Project> {
-    return this._repository.findOneBy({ id });
+  async getOne(id: number): Promise<Project> {
+    const project = await this._repository.findOneBy({ id });
+    if (!project) {
+      throw new NotFoundException(`Project with id ${id} is not found !!`);
+    }
+    return project;
   }
 
   deleteOne(id: number): void {
