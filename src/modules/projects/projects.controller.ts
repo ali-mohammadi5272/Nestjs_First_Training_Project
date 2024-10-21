@@ -61,11 +61,11 @@ export class ProjectsController {
     @Res() res: Response,
     @Param("id", ParseIntPipe) id: number,
   ): Promise<Response> {
-    const data = await this.projectService.getOne(id);
+    const project = await this.projectService.getOne(id);
 
     return res.status(HttpStatus.OK).json({
       message: "Successfully GET Project :))",
-      data,
+      data: project,
       statusCode: HttpStatus.OK,
     });
   }
