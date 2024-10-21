@@ -52,8 +52,16 @@ export class ProjectsController {
   }
 
   @Delete("/:id")
-  deleteOne(@Param("id", ParseIntPipe) id: number): void {
-    this.projectService.deleteOne(id);
+  async deleteOne(
+    @Param("id", ParseIntPipe) id: number,
+    @Res() res: Response,
+  ): Promise<Response> {
+    await this.projectService.deleteOne(id);
+    return res.status(HttpStatus.OK).json({
+      message: "Project removed successfully :))",
+      data: null,
+      statusCode: HttpStatus.OK,
+    });
   }
 
   @Put("/:id")
