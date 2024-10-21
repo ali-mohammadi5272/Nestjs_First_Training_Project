@@ -23,12 +23,23 @@ export class ProjectsController {
   constructor(private readonly projectService: ProjectsService) {}
 
   @Get()
-  getAll(
+  async getAll(
     @Query("status") status: Status,
     @Query("limit") limit: number = 10,
     @Query("page") page: number = 1,
-  ): Promise<Project[]> {
-    return this.projectService.getAll(status, limit, page);
+    @Res() res: Response,
+  ): Promise<Response> {
+    const projects: Project[] = await this.projectService.getAll(
+      status,
+      limit,
+      page,
+    );
+
+    return res.status(HttpStatus.OK).json({
+      message: "Projects",
+      data: projects,
+      statusCode: HttpStatus.OK,
+    });
   }
 
   @Post()
