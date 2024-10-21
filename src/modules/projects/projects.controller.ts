@@ -8,12 +8,15 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Post,
   Put,
   Query,
+  Res,
 } from "@nestjs/common";
+import { Response } from "express";
 
 @Controller("api/projects")
 export class ProjectsController {
@@ -36,8 +39,16 @@ export class ProjectsController {
   }
 
   @Get("/:id")
-  getOne(@Param("id", ParseIntPipe) id: number): Promise<Project> {
-    return this.projectService.getOne(id);
+  async getOne(
+    @Res() res: Response,
+    @Param("id", ParseIntPipe) id: number,
+  ): Promise<Response> {
+    const data = await this.projectService.getOne(id);
+    return res.status(HttpStatus.OK).json({
+      message: "Successfully GET Project :))",
+      data,
+      statusCode: HttpStatus.OK,
+    });
   }
 
   @Delete("/:id")
